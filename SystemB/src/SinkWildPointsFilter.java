@@ -127,7 +127,6 @@ public class SinkWildPointsFilter extends FilterFramework
                 }
 
 
-                }/* if */
                 if(checkpoint){
                     try {
                         file.writeChars(time+"\t");
@@ -157,9 +156,7 @@ public class SinkWildPointsFilter extends FilterFramework
                 break;
 
             } // catch
-            catch (IOException e) {
-                e.printStackTrace();
-            }
+            
 
         } // while
 
