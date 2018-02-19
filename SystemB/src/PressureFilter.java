@@ -108,15 +108,16 @@ public class PressureFilter extends FilterFramework
                     double aux = (Double.longBitsToDouble(measurement));
                     //System.out.println("temp faren:"+aux);
 
-                    aux = ((aux - 32L)*5L)/9L;
-                    //System.out.println("tem cels:"+aux);
-                    output = convertToByteArray(aux);
+                    //if (measurement > 50 || measurement < 80) {
 
-                    for (i=0; i<MeasurementLength; i++ ){
-                        databyte = output[i];
-                        WriteFilterOutputPort(databyte);
-                        byteswritten++;
-                    }
+                        output = convertToByteArray(aux);
+
+                        for (i = 0; i < MeasurementLength; i++) {
+                            databyte = output[i];
+                            WriteFilterOutputPort(databyte);
+                            byteswritten++;
+                        }
+
                 } // if
                 else{
                     for (i=0; i<MeasurementLength; i++ ){

@@ -52,6 +52,7 @@ public class SinkFilter extends FilterFramework
 		String time = null;
 		String altitude = null;
 		String temperature = null;
+		String pressure = null;
 		long measurement;				// This is the word used to store all measurements - conversions are illustrated.
 		int id;							// This is the measurement id
 		int i;							// This is a loop counter
@@ -128,6 +129,12 @@ public class SinkFilter extends FilterFramework
 
 				} // if
 
+				else if ( id == 3 )
+                {
+                    pressure = String.format("%.2f", Double.longBitsToDouble(measurement));
+                    System.out.print("\tPressure (psi): " + String.format("%.2f", Double.longBitsToDouble(measurement)));
+                }
+
 				else if ( id == 4 )
 				{
 					altitude = String.format("%.2f", Double.longBitsToDouble(measurement));
@@ -140,7 +147,8 @@ public class SinkFilter extends FilterFramework
 				if(checkpoint){
 					file.writeChars(time+"\t");
                     file.writeChars(temperature+"\t");
-                    file.writeChars(altitude+"\n");
+                    file.writeChars(altitude+"\t");
+                    file.writeChars( pressure+"\n");
 
 					checkpoint = false;
 				}
