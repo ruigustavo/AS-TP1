@@ -124,6 +124,7 @@ public class SinkWildPointsFilter extends FilterFramework
                 {
                     pressure = String.format("%.5f", Double.longBitsToDouble(measurement));
                     System.out.print("\tPressure (psi): " + String.format("%.5f", Double.longBitsToDouble(measurement)));
+                    checkpoint = true;
                 }
 
 

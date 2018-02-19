@@ -39,15 +39,29 @@ public class PressureToWildSpotsFilter extends FilterFramework
 
     }
 
+    public static byte[] convertToByteArrayv2(int value) {
+        byte[] bytes = new byte[4];
+        ByteBuffer buffer = ByteBuffer.allocate(bytes.length);
+        buffer.putInt(value);
+        return buffer.array();
+
+    }
+
     public void run()
     {
 
         System.out.print( "\n" + this.getName() + "::MIDDLE FILTER Reading ");
         byte[] output = new byte[8];
+        byte[] FinalOutput=null;
+        byte[] outputId = new byte[4];
+        byte[] temp;
+        int finalPos=0;
         long measurement;				// This is the word used to store all measurements - conversions are illustrated.
         int id;							// This is the measurement id
         int i;							// This is a loop counter
 
+
+        Frame actual = new Frame();
         byte databyte = 0;				// This is the data byte read from the stream
         int bytesread = 0;				// This is the number of bytes read from the stream
         int byteswritten = 0;				// Number of bytes written to the stream.
@@ -82,15 +96,11 @@ public class PressureToWildSpotsFilter extends FilterFramework
                         id = id << 8;					// to make room for the next byte we append to the ID
 
                     } // if
-                    // Increment the byte count
-                    bytesread++;
-                    WriteFilterOutputPort(databyte);
-                    byteswritten++;
+
                 } // for
 
                 measurement = 0;
-                if ( id == 3 )
-                {
+
                     for (i=0; i<MeasurementLength; i++ ){
 
                         databyte = ReadFilterInputPort();
@@ -105,29 +115,43 @@ public class PressureToWildSpotsFilter extends FilterFramework
                         bytesread++;
 
                     } // for
+                if (id == 0){  // ID = 0 , DATA
+                    FinalOutput = new byte[24]; // Array de cada FRAME
+                    finalPos=0; // POSIÇAO EM QUE ESTAMOS NA FRAME
+                    temp = ByteBuffer.allocate(4).putInt(0000).array(); // PASSAR DE INTEIRO PARA ARRAY DE BYTE
+                    for (i = 0; i< 4; i++){  // FOR -- METE DO ARRAY TEMPORARIO PARA O ARRAY FINAL OS 4 BYTES DO ID
+                        FinalOutput[finalPos] = temp[i];
+                        finalPos++;
+                    }
+                    temp = ByteBuffer.allocate(8).putLong(measurement).array(); //PASSAR DE LONG PARA ARRAY DE BYTE
+                    for (i = 0; i< 8; i++){ // FOR -- METE DO ARRAY TEMPORARIO PARA O ARRAY FINAL OS 8 BYTES DO MEASUREMENT, NESTE CASO DA DATA
+                        FinalOutput[finalPos] = temp[i];
+                        finalPos++;
+                    }
+                }
+                if ( id == 3 ) // ID = 3 ---- pressure
+                {
                     double aux = (Double.longBitsToDouble(measurement));
-                    //System.out.println("temp faren:"+aux);
+                    if (aux < 50 || aux > 80) {
+                        temp = ByteBuffer.allocate(4).putInt(0003).array(); //PASSAR DE INTEIRO PARA ARRAY DE BYTE
+                        for (i = 0; i < 4; i++){
+                            FinalOutput[finalPos] = temp[i];
+                            finalPos++;
+                        }
+                        temp = ByteBuffer.allocate(8).putLong(measurement).array(); //PASSAR DE LONG PARA ARRAY DE BYTE
+                        for (i = 0; i < 8; i++){//FOR -- METE DO ARRAY TEMPORARIO PARA O ARRAY FINAL OS 8 BYTES DO MEASUREMENT, NESTE CASO DA PRESSURE
+                            FinalOutput[finalPos] = temp[i];
+                            finalPos++;
+                        }
 
-                    if (measurement < 50 || measurement > 80) {
-
-                        output = convertToByteArray(aux);
-
-                        for (i = 0; i < MeasurementLength; i++) {
-                            databyte = output[i];
-                            WriteFilterOutputPort(databyte);
-                            byteswritten++;
+                        for(i=0;i < finalPos; i++){// envia os 24 bytes 12 da data e 12 da pressure para o proximo filtro
+                            WriteFilterOutputPort(FinalOutput[i]);
                         }
                     }
 
                 } // if
-                else{
-                    for (i=0; i<MeasurementLength; i++ ){
-                        databyte = ReadFilterInputPort();
-                        bytesread++;
-                        WriteFilterOutputPort(databyte);
-                        byteswritten++;
-                    }
-                }
+
+
 
 
             } // try

@@ -119,26 +119,26 @@ public class SinkFilter extends FilterFramework
 				{
 					TimeStamp.setTimeInMillis(measurement);
 					time = TimeStampFormat.format(TimeStamp.getTime());
-					System.out.print("Time: " + TimeStampFormat.format(TimeStamp.getTime() ));
+					//System.out.print("Time: " + TimeStampFormat.format(TimeStamp.getTime() ));
 				} // if
 
 				else if ( id == 2 )
 				{
 					temperature = String.format("%.2f", Double.longBitsToDouble(measurement));
-					System.out.print("\tAltitude (m): " + String.format("%.2f", Double.longBitsToDouble(measurement)));
+					//System.out.print("\tAltitude (m): " + String.format("%.2f", Double.longBitsToDouble(measurement)));
 
 				} // if
 
 				else if ( id == 3 )
                 {
                     pressure = String.format("%.2f", Double.longBitsToDouble(measurement));
-                    System.out.print("\tPressure (psi): " + String.format("%.2f", Double.longBitsToDouble(measurement)));
+                    //System.out.print("\tPressure (psi): " + String.format("%.2f", Double.longBitsToDouble(measurement)));
                 }
 
 				else if ( id == 4 )
 				{
 					altitude = String.format("%.2f", Double.longBitsToDouble(measurement));
-					System.out.print("\tTemperature (°C): " + String.format("%.2f", Double.longBitsToDouble(measurement)));
+					//System.out.print("\tTemperature (°C): " + String.format("%.2f", Double.longBitsToDouble(measurement)));
 					System.out.print( "\n" );
 
 					checkpoint = true;
