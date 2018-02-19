@@ -108,7 +108,8 @@ public class PressureToRangeFilter extends FilterFramework
                     double aux = (Double.longBitsToDouble(measurement));
                     //System.out.println("temp faren:"+aux);
 
-                    if (measurement > 50 || measurement < 80) {
+                    //not wild spot
+                    if (measurement < 50 || measurement > 80) {
 
                         output = convertToByteArray(aux);
 
@@ -117,6 +118,7 @@ public class PressureToRangeFilter extends FilterFramework
                             WriteFilterOutputPort(databyte);
                             byteswritten++;
                         }
+                    }
 
                 } // if
                 else{
@@ -147,6 +149,6 @@ public class PressureToRangeFilter extends FilterFramework
 
         } // while
 
-    } // run
+        } // run
 
 } // FarToCelsiusFilter
