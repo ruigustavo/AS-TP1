@@ -29,7 +29,7 @@ import java.nio.ByteBuffer;
  *
  ******************************************************************************************************************/
 
-public class PressureFilter extends FilterFramework
+public class PressureToWildSpotsFilter extends FilterFramework
 {
     public static byte[] convertToByteArray(double value) {
         byte[] bytes = new byte[8];

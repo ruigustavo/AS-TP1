@@ -29,7 +29,7 @@ import java.nio.ByteBuffer;
  *
  ******************************************************************************************************************/
 
-public class WildPointsFilter extends FilterFramework
+public class SinkWildPointsFilter extends FilterFramework
 {
     public static byte[] convertToByteArray(double value) {
         byte[] bytes = new byte[8];

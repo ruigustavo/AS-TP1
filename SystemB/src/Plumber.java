@@ -49,9 +49,10 @@ public class Plumber
 	   SourceFilter Filter1 = new SourceFilter();	        	// This is a source filter - see SourceFilter.java
 	   FarToCelsiusFilter Filter2 = new FarToCelsiusFilter();	// This is a standard filter - see FarToCelsiusFilter.java
 	   FeetToMeterFilter Filter3 = new FeetToMeterFilter();		// This is a standard filter - see FeetToMeterFilter.java
-	   PressureFilter Filter4 = new PressureFilter();			// This is a standard filter - see PressureFilter.java
-	   WildPointsFilter Filter5 = new WildPointsFilter();		// This is a standard filter - see PressureFilter.java
-	   SinkFilter Filter6 = new SinkFilter();		        	// This is a sink filter - see SinkFilter.java
+	   PressureToRangeFilter Filter4 = new PressureToRangeFilter();			// This is a standard filter - see PressureToRangeFilter.java
+	   PressureToWildSpotsFilter Filter5 = new PressureToWildSpotsFilter();			// This is a standard filter - see PressureToRangeFilter.java
+	   SinkWildPointsFilter Filter6 = new SinkWildPointsFilter();		// This is a standard filter - see SinkWildPointsFilter.java
+	   SinkFilter Filter7 = new SinkFilter();		        	// This is a sink filter - see SinkFilter.java
 
 		/****************************************************************************
 		* Here we connect the filters starting with the sink filter (Filter 1) which
@@ -60,8 +61,9 @@ public class Plumber
 		* filter and working your way back to the source as shown here.
 		****************************************************************************/
 
-	   	Filter6.Connect(Filter4); // This essentially says, "connect Filter6's input port to Filter3's output port
-		Filter5.Connect(Filter4); // This essentially says, "connect Filter5's input port to Filter3's output port
+	   	Filter7.Connect(Filter4);
+		Filter6.Connect(Filter5); // This essentially says, "connect Filter6's input port to Filter3's output port
+	   	Filter5.Connect(Filter3); // This essentially says, "connect Filter5's input port to Filter3's output port
 		Filter4.Connect(Filter3); // This essentially says, "connect Filter4's input port to Filter3's output port
 		Filter3.Connect(Filter2); // This essentially says, "connect Filter3's input port to Filter2's output port
 		Filter2.Connect(Filter1); // This essentially says, "connect Filter2's input port to Filter1's output port
@@ -78,6 +80,7 @@ public class Plumber
 	   	Filter4.start();
 	   	Filter5.start();
 	   	Filter6.start();
+	   	Filter7.start();
 
 
    } // main
