@@ -51,8 +51,8 @@ public class Plumber
 	   FeetToMeterFilter Filter3 = new FeetToMeterFilter();		// This is a standard filter - see FeetToMeterFilter.java
 	   PressureToRangeFilter Filter4 = new PressureToRangeFilter();			// This is a standard filter - see PressureToRangeFilter.java
 	   PressureToWildSpotsFilter Filter5 = new PressureToWildSpotsFilter();			// This is a standard filter - see PressureToRangeFilter.java
-	   SinkWildPointsFilter Filter6 = new SinkWildPointsFilter();		// This is a standard filter - see SinkWildPointsFilter.java
-	   SinkFilter Filter7 = new SinkFilter();		        	// This is a sink filter - see SinkFilter.java
+	   SinkFilter Filter6 = new SinkFilter();		        	// This is a sink filter - see SinkFilter.java
+	   SinkWildPointsFilter Filter7 = new SinkWildPointsFilter();		// This is a standard filter - see SinkWildPointsFilter.java
 
 		/****************************************************************************
 		* Here we connect the filters starting with the sink filter (Filter 1) which
@@ -62,11 +62,12 @@ public class Plumber
 		****************************************************************************/
 
 
-	   Filter7.Connect(Filter4);
-	   Filter6.Connect(Filter5); // This essentially says, "connect Filter6's input port to Filter3's output port
 
+
+	    Filter7.Connect(Filter5); // This essentially says, "connect Filter6's input port to Filter5's output port
+	    Filter6.Connect(Filter4);
 	   	Filter5.Connect(Filter3); // This essentially says, "connect Filter5's input port to Filter3's output port
-	   Filter4.Connect(Filter3); // This essentially says, "connect Filter4's input port to Filter3's output port
+	   	Filter4.Connect(Filter3); // This essentially says, "connect Filter4's input port to Filter3's output port
 		Filter3.Connect(Filter2); // This essentially says, "connect Filter3's input port to Filter2's output port
 		Filter2.Connect(Filter1); // This essentially says, "connect Filter2's input port to Filter1's output port
 

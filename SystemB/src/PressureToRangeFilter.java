@@ -113,10 +113,10 @@ public class PressureToRangeFilter extends FilterFramework
             actualF[position] = temp[i];
             position++;
         }
-        //fim por ID = 4 no array de bytes da frame a enviar ---- ALTITUDE
+        //fim por ID = 4 no array de bytes da frame a enviar ---- TEMPERATURE
 
         for(int i=0;i<position;i++){
-            WriteFilterOutputPort(actualF[i]);			// envia byte a byte a frame toda
+            WriteFilterOutputPort(0,actualF[i]);			// envia byte a byte a frame toda
         }
     }
 
@@ -130,7 +130,7 @@ public class PressureToRangeFilter extends FilterFramework
         int i;							// This is a loop counter
 
 
-        Frame actual = new Frame();
+
         byte databyte = 0;				// This is the data byte read from the stream
         int bytesread = 0;				// This is the number of bytes read from the stream
         int byteswritten = 0;				// Number of bytes written to the stream.
@@ -229,7 +229,9 @@ public class PressureToRangeFilter extends FilterFramework
                     auxFrame.setId4(measurement);        // guarda o valor do id4 -- TEMPERATURE
                 }
 
-            } catch (EndOfStreamException e) {
+            }//try
+
+            catch (EndOfStreamException e) {
                 //tratar da ultima frame lida para os casos em que antes da ultima há invalidos!
                 if (valid) {                    // como em primeiro le-mos a frame, guardamos e so a seguir tratamos dele,
                     if (invalidFrames.size() == 0) {    // se nao existirem frames anteriores com valores de pressao invalidos
@@ -258,7 +260,7 @@ public class PressureToRangeFilter extends FilterFramework
                 break;
                 //e.printStackTrace();
 
-            }
+            }//catch
         }// while
     } // run
 
