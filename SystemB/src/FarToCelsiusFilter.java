@@ -84,7 +84,7 @@ public class FarToCelsiusFilter extends FilterFramework
 					} // if
 					// Increment the byte count
                     bytesread++;
-                    WriteFilterOutputPort(databyte);
+                    WriteFilterOutputPort(0,databyte);
                     byteswritten++;
 				} // for
 
@@ -114,7 +114,7 @@ public class FarToCelsiusFilter extends FilterFramework
 
                     for (i=0; i<MeasurementLength; i++ ){
                         databyte = output[i];
-                        WriteFilterOutputPort(databyte);
+                        WriteFilterOutputPort(0,databyte);
                         byteswritten++;
                     }
                 } // if
@@ -122,7 +122,7 @@ public class FarToCelsiusFilter extends FilterFramework
                     for (i=0; i<MeasurementLength; i++ ){
                         databyte = ReadFilterInputPort();
                         bytesread++;
-                        WriteFilterOutputPort(databyte);
+                        WriteFilterOutputPort(0,databyte);
                         byteswritten++;
                     }
                 }

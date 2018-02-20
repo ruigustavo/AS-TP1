@@ -84,7 +84,8 @@ public class FeetToMeterFilter extends FilterFramework
                     } // if
                     // Increment the byte count
                     bytesread++;
-                    WriteFilterOutputPort(databyte);
+                    WriteFilterOutputPort(0,databyte);
+                    WriteFilterOutputPort(1,databyte);
                     byteswritten++;
                 } // for
 
@@ -111,7 +112,8 @@ public class FeetToMeterFilter extends FilterFramework
                     output = convertToByteArray(aux);
                     for (i=0; i<MeasurementLength; i++ ){
                         databyte = output[i];
-                        WriteFilterOutputPort(databyte);
+                        WriteFilterOutputPort(0,databyte);
+                        WriteFilterOutputPort(1,databyte);
                         byteswritten++;
                     }
                 } // if
@@ -119,7 +121,8 @@ public class FeetToMeterFilter extends FilterFramework
                     for (i=0; i<MeasurementLength; i++ ){
                         databyte = ReadFilterInputPort();
                         bytesread++;
-                        WriteFilterOutputPort(databyte);
+                        WriteFilterOutputPort(0,databyte);
+                        WriteFilterOutputPort(1,databyte);
                         byteswritten++;
                     }
                 }

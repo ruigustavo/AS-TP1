@@ -89,7 +89,7 @@ public class PressureToWildSpotsFilter extends FilterFramework
                         id = id << 8;					// to make room for the next byte we append to the ID
 
                     } // if
-
+                    bytesread++;
                 } // for
 
                 measurement = 0;
@@ -138,7 +138,7 @@ public class PressureToWildSpotsFilter extends FilterFramework
                         }
 
                         for(i=0;i < finalPos; i++){// envia os 24 bytes 12 da data e 12 da pressure para o proximo filtro
-                            WriteFilterOutputPort(FinalOutput[i]);
+                            WriteFilterOutputPort(0,FinalOutput[i]);
                         }
                     }
 

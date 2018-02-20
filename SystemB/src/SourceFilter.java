@@ -60,7 +60,7 @@ public class SourceFilter extends FilterFramework
 			{
 				databyte = in.readByte();
 				bytesread++;
-				WriteFilterOutputPort(databyte);
+				WriteFilterOutputPort(0,databyte);
 				byteswritten++;
 
 			} // while
