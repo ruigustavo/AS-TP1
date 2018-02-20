@@ -38,7 +38,7 @@ public class SinkFilter extends FilterFramework
 {
 	public void run()
     {
-		String fileName = "OutputB.dat"; // new output
+		String fileName = "OutputB.txt"; // new output
 		DataOutputStream file = null;
 		Calendar TimeStamp = Calendar.getInstance();
 		SimpleDateFormat TimeStampFormat = new SimpleDateFormat("yyyy:dd:hh:mm:ss");
@@ -57,6 +57,7 @@ public class SinkFilter extends FilterFramework
 		int id;							// This is the measurement id
 		int i;							// This is a loop counter
 
+		double auxP = 0;
 		boolean checkpoint = false;
 		try {
 			file = new DataOutputStream(new FileOutputStream(fileName));
@@ -131,7 +132,14 @@ public class SinkFilter extends FilterFramework
 
 				else if ( id == 3 )
                 {
-                    pressure = String.format("%.2f", Double.longBitsToDouble(measurement));
+                	auxP =  Double.longBitsToDouble(measurement);
+                	if(auxP<0){
+						pressure = String.format("%.2f*",Math.abs( auxP));
+					}
+					else{
+						pressure = String.format("%.2f",Math.abs(auxP));
+					}
+
                     //System.out.print("\tPressure (psi): " + String.format("%.2f", Double.longBitsToDouble(measurement)));
                 }
 
@@ -139,19 +147,13 @@ public class SinkFilter extends FilterFramework
 				{
 					altitude = String.format("%.2f", Double.longBitsToDouble(measurement));
 					//System.out.print("\tTemperature (°C): " + String.format("%.2f", Double.longBitsToDouble(measurement)));
-					System.out.print( "\n" );
 
-					checkpoint = true;
+					file.writeChars(time + "\t" + temperature + "\t" + altitude + "\t" + pressure +"\n" );
+
+
 
 				} // if
-				if(checkpoint){
-					file.writeChars(time+"\t");
-                    file.writeChars(temperature+"\t");
-                    file.writeChars(altitude+"\t");
-                    file.writeChars( pressure+"\n");
 
-					checkpoint = false;
-				}
 
 
 

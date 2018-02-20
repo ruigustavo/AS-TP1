@@ -39,18 +39,11 @@ public class PressureToWildSpotsFilter extends FilterFramework
 
     }
 
-    public static byte[] convertToByteArrayv2(int value) {
-        byte[] bytes = new byte[4];
-        ByteBuffer buffer = ByteBuffer.allocate(bytes.length);
-        buffer.putInt(value);
-        return buffer.array();
-
-    }
 
     public void run()
     {
 
-        System.out.print( "\n" + this.getName() + "::MIDDLE FILTER Reading ");
+        System.out.print( "\n" + this.getName() + "::PRESSURE TO WILD SPOT SINK Reading ");
         byte[] output = new byte[8];
         byte[] FinalOutput=null;
         byte[] outputId = new byte[4];

@@ -42,7 +42,7 @@ public class FarToCelsiusFilter extends FilterFramework
 	public void run()
     {
 
-        System.out.print( "\n" + this.getName() + "::MIDDLE FILTER Reading ");
+        System.out.print( "\n" + this.getName() + "::TEMPERATURE FILTER Reading ");
         byte[] output = new byte[8];
 		long measurement;				// This is the word used to store all measurements - conversions are illustrated.
 		int id;							// This is the measurement id

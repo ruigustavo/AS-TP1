@@ -67,7 +67,7 @@ public class SinkFilter extends FilterFramework
 		 *	First we announce to the world that we are alive...
 		 **************************************************************/
 
-		System.out.println( "\n" + this.getName() + "::Sink Reading ");
+		System.out.println( "\n" + this.getName() + "::SINK Reading ");
 
 /*************************************************************
 *	This is the main processing loop for the filter. Since this
@@ -134,17 +134,9 @@ public class SinkFilter extends FilterFramework
 					System.out.print("\tTemperature (°C): " + String.format("%.2f", Double.longBitsToDouble(measurement)));
 					System.out.print( "\n" );
 
-					checkpoint = true;
+					file.writeChars(time + "\t" + temperature + "\t" + altitude + "\n");
 
 				} // if
-				if(checkpoint){
-					file.writeChars(time+"\t");
-                    file.writeChars(temperature+"\t");
-                    file.writeChars(altitude+"\n");
-
-					checkpoint = false;
-				}
-
 
 
 			} // try
