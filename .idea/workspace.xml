@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a2944a6c-a9ee-47f0-a99f-949ac734617a" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/SystemC/MiddleFilter.class" afterPath="$PROJECT_DIR$/out/production/SystemC/MiddleFilter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OutputC.txt" afterPath="$PROJECT_DIR$/OutputC.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SystemC/src/MiddleFilter.java" afterPath="$PROJECT_DIR$/SystemC/src/MiddleFilter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SystemC/src/SinkFilterC.java" afterPath="$PROJECT_DIR$/SystemC/src/SinkFilterC.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SystemC/src/SourceFilterB.java" afterPath="$PROJECT_DIR$/SystemC/src/SourceFilterB.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -41,8 +44,8 @@
       <file leaf-file-name="MiddleFilter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SystemC/src/MiddleFilter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="55" column="50" lean-forward="true" selection-start-line="55" selection-start-column="50" selection-end-line="55" selection-end-column="50" />
+            <state relative-caret-position="410">
+              <caret line="106" column="35" lean-forward="true" selection-start-line="106" selection-start-column="35" selection-end-line="106" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -54,7 +57,27 @@
         <entry file="file://$PROJECT_DIR$/OutputC.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SourceFilterA.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SystemC/src/SourceFilterA.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="188">
+              <caret line="38" column="40" lean-forward="true" selection-start-line="38" selection-start-column="40" selection-end-line="38" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SourceFilterB.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SystemC/src/SourceFilterB.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="290">
+              <caret line="38" column="34" lean-forward="false" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -102,11 +125,11 @@
         <option value="$PROJECT_DIR$/OutputB.txt" />
         <option value="$PROJECT_DIR$/SystemC/src/FilterFramework.java" />
         <option value="$PROJECT_DIR$/SystemC/src/PlumberC.java" />
-        <option value="$PROJECT_DIR$/SystemC/src/SourceFilterB.java" />
         <option value="$PROJECT_DIR$/SystemC/src/SourceFilterA.java" />
         <option value="$PROJECT_DIR$/SystemC/src/Frame.java" />
         <option value="$PROJECT_DIR$/SystemC/src/SinkFilterC.java" />
         <option value="$PROJECT_DIR$/SystemC/src/MiddleFilter.java" />
+        <option value="$PROJECT_DIR$/SystemC/src/SourceFilterB.java" />
       </list>
     </option>
   </component>
@@ -340,12 +363,12 @@
       <updated>1519049973218</updated>
       <workItem from="1519049976566" duration="379000" />
       <workItem from="1519212896381" duration="2440000" />
-      <workItem from="1519224128766" duration="6397000" />
+      <workItem from="1519224128766" duration="7083000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21057000" />
+    <option name="totallyTimeSpent" value="21743000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="699" y="0" width="1188" height="1087" extended-state="0" />
@@ -699,22 +722,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SystemC/src/SourceFilterA.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="33" column="26" lean-forward="false" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SystemC/src/SourceFilterB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="33" column="26" lean-forward="false" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SystemB/src/PressureToRangeFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -761,15 +768,31 @@
     <entry file="file://$PROJECT_DIR$/OutputC.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SystemC/src/SourceFilterB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="38" column="34" lean-forward="false" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SystemC/src/SourceFilterA.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="38" column="40" lean-forward="true" selection-start-line="38" selection-start-column="40" selection-end-line="38" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SystemC/src/MiddleFilter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="55" column="50" lean-forward="true" selection-start-line="55" selection-start-column="50" selection-end-line="55" selection-end-column="50" />
+        <state relative-caret-position="410">
+          <caret line="106" column="35" lean-forward="true" selection-start-line="106" selection-start-column="35" selection-end-line="106" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

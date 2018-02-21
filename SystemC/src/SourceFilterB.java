@@ -36,7 +36,7 @@ public class SourceFilterB extends FilterFramework
 	public void run()
 	{
 
-		String fileName = "SubSetA.dat";	// Input data file.
+		String fileName = "SubSetB.dat";	// Input data file.
 		int bytesread = 0;					// Number of bytes read from the input file.
 		int byteswritten = 0;				// Number of bytes written to the stream.
 		DataInputStream in = null;			// File stream reference.

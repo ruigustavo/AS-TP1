@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 public class MiddleFilter extends FilterFramework
 {
-	ArrayList<Frame> Merged = new ArrayList<>();
+
 	public static void mergeArrays(ArrayList<Frame> arr1, ArrayList<Frame> arr2, int n1,
 								   int n2, ArrayList<Frame> arr3)
 	{
@@ -52,23 +52,25 @@ public class MiddleFilter extends FilterFramework
 			// index. Otherwise do same with second array
 			if (arr1.get(i).getId0() < arr2.get(j).getId0()){
 				Frame aux = new Frame();
-				i++;
+
 				aux.setId0(arr1.get(i).getId0()) ;
 				aux.setId1(arr1.get(i).getId1()) ;
 				aux.setId2(arr1.get(i).getId2()) ;
 				aux.setId3(arr1.get(i).getId3()) ;
 				aux.setId4(arr1.get(i).getId4()) ;
+				i++;
 				arr3.set(k++,aux);
 			}
 
 			else{
 				Frame aux = new Frame();
-				j++;
+
 				aux.setId0(arr2.get(j).getId0()) ;
 				aux.setId1(arr2.get(j).getId1()) ;
 				aux.setId2(arr2.get(j).getId2()) ;
 				aux.setId3(arr2.get(j).getId3()) ;
 				aux.setId4(arr2.get(j).getId4()) ;
+				j++;
 				arr3.set(k++,aux);
 			}
 		}
@@ -77,12 +79,13 @@ public class MiddleFilter extends FilterFramework
 		// Store remaining elements of first array
 		while (i < n1){
 			Frame aux = new Frame();
-			i++;
+
 			aux.setId0(arr1.get(i).getId0()) ;
 			aux.setId1(arr1.get(i).getId1()) ;
 			aux.setId2(arr1.get(i).getId2()) ;
 			aux.setId3(arr1.get(i).getId3()) ;
 			aux.setId4(arr1.get(i).getId4()) ;
+			i++;
 			arr3.set(k++,aux);
 		}
 
@@ -90,12 +93,13 @@ public class MiddleFilter extends FilterFramework
 		// Store remaining elements of second array
 		while (j < n2){
 			Frame aux = new Frame();
-			j++;
+
 			aux.setId0(arr2.get(j).getId0()) ;
 			aux.setId1(arr2.get(j).getId1()) ;
 			aux.setId2(arr2.get(j).getId2()) ;
 			aux.setId3(arr2.get(j).getId3()) ;
 			aux.setId4(arr2.get(j).getId4()) ;
+			j++;
 			arr3.set(k++,aux);
 		}
 	}
@@ -204,7 +208,7 @@ public class MiddleFilter extends FilterFramework
 
 		ArrayList<Frame> FramesA = new ArrayList<>();
 		ArrayList<Frame> FramesB = new ArrayList<>();
-
+		ArrayList<Frame> Merged = new ArrayList<>();
 
 		int MeasurementLength = 8;		// This is the length of all measurements (including time) in bytes
 		int IdLength = 4;				// This is the length of IDs in the byte stream
@@ -355,7 +359,7 @@ public class MiddleFilter extends FilterFramework
 
 						while(true){						// enviar o resto da informacao da stream A
 
-							idA =0;
+
 
 							for (i=0; i<IdLength; i++ ){
 								databyteA = ReadFilterInputPort(0);	// This is where we read the byte from the stream...
@@ -411,7 +415,7 @@ public class MiddleFilter extends FilterFramework
 
 						while(true){
 
-							idB = 0;
+
 
 							for (i=0; i<IdLength; i++ )
 							{
