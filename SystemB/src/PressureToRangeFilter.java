@@ -178,7 +178,12 @@ public class PressureToRangeFilter extends FilterFramework
 
                 if (id == 0) {
                     if (auxFrame != null) {   // ignora a primeira frame
-                        if (valid) {     // se o valor da pressão da ultima frame guardada for valido
+                        if (!valid) {   // se o valor da ultima frame guardada for invalido
+                            invalidFrames.add(auxFrame);        // guarda-se no arraylist
+                            valid = true;                    // reset da variavel de controlo
+
+                        } else {
+                            // se o valor da pressão da ultima frame guardada for valido
                             if (invalidFrames.size() == 0) {    // se nao existirem frames anteriores com valores de pressao invalidos
 
                                 sendFrame(auxFrame); // envia frame
@@ -195,10 +200,6 @@ public class PressureToRangeFilter extends FilterFramework
                                 invalidFrames.clear();                        // limpar arraylist das frames invalidas
                             }
                             lastValidPressure = auxFrame.getId3();    // guardar o valor de pressao valido
-
-                        } else {                            // se o valor da ultima frame guardada for invalido
-                            invalidFrames.add(auxFrame);        // guarda-se no arraylist
-                            valid = true;                    // reset da variavel de controlo
                         }
                     }
                     auxFrame = new Frame();            // nova frame
@@ -233,7 +234,16 @@ public class PressureToRangeFilter extends FilterFramework
 
             catch (EndOfStreamException e) {
                 //tratar da ultima frame lida para os casos em que antes da ultima há invalidos!
-                if (valid) {                    // como em primeiro le-mos a frame, guardamos e so a seguir tratamos dele,
+                if (!valid) { //CASO A ULTIMA NAO SEJA VALIDA
+                    invalidFrames.add(auxFrame);            //  adiciona-se ao arraylist
+                    updateFrames(lastValidPressure, 0.0);        // Interpola-se todos os invalidos pelo ultimo valor valido
+                    for (Frame f : invalidFrames) {            // envia todas as frames que estavam invalidas
+                        sendFrame(f);
+                    }
+                    invalidFrames.clear();                    // limpa o array
+
+                } else {
+                    // como em primeiro le-mos a frame, guardamos e so a seguir tratamos dele,
                     if (invalidFrames.size() == 0) {    // se nao existirem frames anteriores com valores de pressao invalidos
 
                         sendFrame(auxFrame);        //  quando o ficheiro acaba resta-nos analisar a ultima frame
@@ -248,13 +258,6 @@ public class PressureToRangeFilter extends FilterFramework
                         sendFrame(auxFrame);                // enviar a frame valida
                         invalidFrames.clear();              // limpa o array
                     }
-                } else {                                       //CASO A ULTIMA NAO SER VALIDA
-                    invalidFrames.add(auxFrame);            //  adiciona-se ao arraylist
-                    updateFrames(lastValidPressure, 0.0);        // Interpola-se todos os invalidos pelo ultimo valor valido
-                    for (Frame f : invalidFrames) {            // envia todas as frames que estavam invalidas
-                        sendFrame(f);
-                    }
-                    invalidFrames.clear();                    // limpa o array
                 }
                 ClosePorts();
                 break;
