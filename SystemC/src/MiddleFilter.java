@@ -336,56 +336,26 @@ public class MiddleFilter extends FilterFramework
 				}
 				try{		// quando enviamos tudo de um source falta enviar o resto do outro
 
-					if(currentSource == 0){		// se o sourceB acabou, enviamos tudo o que falta do sourceA
-
-						array = new byte[60];
-
-						position = 0;
-
-						temp =ByteBuffer.allocate(4).putInt(idA).array();
-
-						for(int a=0;a<4;a++){
-							array[position]=temp[a];
-							position++;
-						}
-
-						temp = ByteBuffer.allocate(8).putLong(measurementA).array();
-
-						for(int a=0;a<8;a++){
-							array[position] = temp[a];
-							position++;
-						}
-
-						for(int a=0;a<position;a++){		// enviar o ID 0 + measurement do id0 que estavam guardados
-							WriteFilterOutputPort(array[a]);
-							byteswritten++;
-						}
-
-
+					if(nextSource == 1){		// se o sourceB acabou, enviamos tudo o que falta do sourceA
 						while(true){						// enviar o resto da informacao da stream A
 
-
-
 							for (i=0; i<IdLength; i++ ){
-								databyteA = ReadFilterInputPort(0);	// This is where we read the byte from the stream...
+								databyte = ReadFilterInputPort(0);	// This is where we read the byte from the stream...
 
 								bytesread++;						// Increment the byte count
 
-								WriteFilterOutputPort(databyteA);
+								WriteFilterOutputPort(databyte);
 								byteswritten++;
 
 							} // for
 
 
-
-							measurementA = 0;
-
 							for (i=0; i<MeasurementLength; i++ )
 							{
-								databyteA = ReadFilterInputPort(0);
+								databyte = ReadFilterInputPort(0);
 								bytesread++;									// Increment the byte count
 
-								WriteFilterOutputPort(databyteA);
+								WriteFilterOutputPort(databyte);
 								byteswritten++;
 
 							} // if
@@ -394,53 +364,24 @@ public class MiddleFilter extends FilterFramework
 						}
 
 					}else{							// se o sourceA acabou, enviamos tudo o que falta do sourceB
-
-						array =  new byte[60];
-
-						position = 0;
-
-						temp =ByteBuffer.allocate(4).putInt(idB).array();
-
-						for(int a=0;a<4;a++){
-							array[position]=temp[a];
-							position++;
-						}
-
-						temp = ByteBuffer.allocate(8).putLong(measurementB).array();
-
-						for(int a=0;a<8;a++){
-							array[position] = temp[a];
-							position++;
-						}
-
-						for(int a=0;a<position;a++){		// enviar o ID 0 + measurement do id0 que estavam guardados em memoria
-							WriteFilterOutputPort(array[a]);
-							byteswritten++;
-						}
-
 						while(true){
-
-
-
 							for (i=0; i<IdLength; i++ )
 							{
-								databyteB = ReadFilterInputPort(1);	// This is where we read the byte from the stream...
+								databyte = ReadFilterInputPort(1);	// This is where we read the byte from the stream...
 
 								bytesread++;						// Increment the byte count
 
-								WriteFilterOutputPort(databyteB);
+								WriteFilterOutputPort(databyte);
 								byteswritten++;
 
 							} // for
 
-							measurementB = 0;
-
 							for (i=0; i<MeasurementLength; i++ )
 							{
-								databyteB = ReadFilterInputPort(1);
+								databyte = ReadFilterInputPort(1);
 								bytesread++;									// Increment the byte count
 
-								WriteFilterOutputPort(databyteB); // junçao das 2 streams
+								WriteFilterOutputPort(databyte); // junçao das 2 streams
 								byteswritten++;
 
 							} // if
