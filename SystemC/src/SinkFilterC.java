@@ -40,7 +40,7 @@ public class SinkFilterC extends FilterFramework
 		 * 	TimeStampFormat is used to format the time value so that it can be easily printed
 		 *	to the terminal.
 		 *************************************************************************************/
-		String fileName = "OutputC.txt"; // new output
+		String fileName = "OutputC.dat"; // new output
 		DataOutputStream file = null;
 		Calendar TimeStamp = Calendar.getInstance();
 		SimpleDateFormat TimeStampFormat = new SimpleDateFormat("yyyy:dd:hh:mm:ss:SSS");

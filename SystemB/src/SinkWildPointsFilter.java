@@ -38,7 +38,7 @@ public class SinkWildPointsFilter extends FilterFramework
 {
     public void run()
     {
-        String fileName = "WildPoints.txt"; // new output
+        String fileName = "WildPoints.dat"; // new output
         DataOutputStream file = null;
         Calendar TimeStamp = Calendar.getInstance();
         SimpleDateFormat TimeStampFormat = new SimpleDateFormat("yyyy:dd:hh:mm:ss");

@@ -46,7 +46,7 @@ public class PressureToRangeFilter extends FilterFramework
         }
     }
 
-    public void sendFrame(Frame f){
+    public void sendFrame(int pipe,Frame f){
         byte actualF[] = new byte[48];
         byte[] temp;
         int position = 0;
@@ -116,7 +116,7 @@ public class PressureToRangeFilter extends FilterFramework
         //fim por ID = 4 no array de bytes da frame a enviar ---- TEMPERATURE
 
         for(int i=0;i<position;i++){
-            WriteFilterOutputPort(0,actualF[i]);			// envia byte a byte a frame toda
+            WriteFilterOutputPort(pipe,actualF[i]);			// envia byte a byte a frame toda
         }
     }
 
@@ -178,25 +178,24 @@ public class PressureToRangeFilter extends FilterFramework
 
                 if (id == 0) {
                     if (auxFrame != null) {   // ignora a primeira frame
-                        if (!valid) {   // se o valor da ultima frame guardada for invalido
+                        if (valid==false) {   // se o valor da ultima frame guardada for invalido
                             invalidFrames.add(auxFrame);        // guarda-se no arraylist
+                            sendFrame(0,auxFrame);		// envia-se para o pipe WildPoints
                             valid = true;                    // reset da variavel de controlo
 
                         } else {
                             // se o valor da pressão da ultima frame guardada for valido
                             if (invalidFrames.size() == 0) {    // se nao existirem frames anteriores com valores de pressao invalidos
-
-                                sendFrame(auxFrame); // envia frame
+                                sendFrame(1,auxFrame); // envia frame
                             } else {
-
                                 validPressure = auxFrame.getId3(); // valor de pressao valido encontrado
 
                                 updateFrames(validPressure, lastValidPressure); // media entre o ultimo valor valido e o novo, alterando todas as frames que estavam invalidas
 
                                 for (Frame f : invalidFrames) {
-                                    sendFrame(f);                    //enviar as frames que estavam invalidas
+                                    sendFrame(1,f);                    //enviar as frames que estavam invalidas
                                 }
-                                sendFrame(auxFrame);                // enviar a frame actual que é valida
+                                sendFrame(1,auxFrame);                // enviar a frame actual que é valida
                                 invalidFrames.clear();                        // limpar arraylist das frames invalidas
                             }
                             lastValidPressure = auxFrame.getId3();    // guardar o valor de pressao valido
@@ -212,7 +211,7 @@ public class PressureToRangeFilter extends FilterFramework
                 }
 
                 if (id == 3) {
-                    //System.out.println("Measurement1 : " + measurement);
+
                     Double auxP = Double.longBitsToDouble(measurement);
                     //System.out.println("pressure como vem:"+auxP);
                     auxFrame.setId3(auxP);                            // guarda o valor do id3 --- PRESSURE
@@ -220,9 +219,6 @@ public class PressureToRangeFilter extends FilterFramework
                     if (auxP < 50 || auxP > 80 ) {
                         valid = false;                    // verifica se o valor de pressao e valido
                     }
-                    //System.out.println("Measurement2 : " + measurement)
-
-                    //System.out.print(TimeStampFormat.format(TimeStamp.getTime()) + " ID = " + id + " " + Double.longBitsToDouble(measurement));
 
                 }
 
@@ -233,12 +229,15 @@ public class PressureToRangeFilter extends FilterFramework
             }//try
 
             catch (EndOfStreamException e) {
-                //tratar da ultima frame lida para os casos em que antes da ultima há invalidos!
-                if (!valid) { //CASO A ULTIMA NAO SEJA VALIDA
+                //tratar da ultima frame lida para os casos em que antes da ultima há invalidos
+                if (valid==false) { //CASO A ULTIMA NAO SEJA VALIDA
                     invalidFrames.add(auxFrame);            //  adiciona-se ao arraylist
+                    sendFrame(0,auxFrame);		// envia-se para o pipe WildPoints
+
                     updateFrames(lastValidPressure, 0.0);        // Interpola-se todos os invalidos pelo ultimo valor valido
+
                     for (Frame f : invalidFrames) {            // envia todas as frames que estavam invalidas
-                        sendFrame(f);
+                        sendFrame(1,f);
                     }
                     invalidFrames.clear();                    // limpa o array
 
@@ -246,16 +245,16 @@ public class PressureToRangeFilter extends FilterFramework
                     // como em primeiro le-mos a frame, guardamos e so a seguir tratamos dele,
                     if (invalidFrames.size() == 0) {    // se nao existirem frames anteriores com valores de pressao invalidos
 
-                        sendFrame(auxFrame);        //  quando o ficheiro acaba resta-nos analisar a ultima frame
+                        sendFrame(1,auxFrame);        //  quando o ficheiro acaba resta-nos analisar a ultima frame
                     }                                // se valida envia
                     else {
                         validPressure = auxFrame.getId3(); // valor de pressao valido encontrado
                         updateFrames(validPressure, lastValidPressure); // media entre o ultimo valor valido e o novo, alterando todas as frames que estavam invalidas
 
                         for (Frame f : invalidFrames) {
-                            sendFrame(f);                    //enviar as frames que estavam invalidas
+                            sendFrame(1,f);                    //enviar as frames que estavam invalidas
                         }
-                        sendFrame(auxFrame);                // enviar a frame valida
+                        sendFrame(1,auxFrame);                // enviar a frame valida
                         invalidFrames.clear();              // limpa o array
                     }
                 }

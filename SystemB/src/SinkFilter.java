@@ -38,7 +38,7 @@ public class SinkFilter extends FilterFramework
 {
 	public void run()
     {
-		String fileName = "OutputB.txt"; // new output
+		String fileName = "OutputB.dat"; // new output
 		DataOutputStream file = null;
 		Calendar TimeStamp = Calendar.getInstance();
 		SimpleDateFormat TimeStampFormat = new SimpleDateFormat("yyyy:dd:hh:mm:ss");
