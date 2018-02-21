@@ -139,7 +139,7 @@ public class SinkFilterC extends FilterFramework
 					TimeStamp.setTimeInMillis(measurement);
 					time = TimeStampFormat.format(TimeStamp.getTime());
 					file.writeChars(time + "\n" );
-					//System.out.println( time));
+					System.out.println("time:"+ time);
 
 				} // if
 
@@ -168,7 +168,7 @@ public class SinkFilterC extends FilterFramework
 			catch (EndOfStreamException e)
 			{
 				ClosePorts();
-				//System.out.println( "\n" + this.getName() + "::Sink Exiting; bytes read: " + bytesread );
+				System.out.println( "\n" + this.getName() + "::Sink Exiting; bytes read: " + bytesread );
 				break;
 
 			} // catch
