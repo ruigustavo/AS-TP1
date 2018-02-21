@@ -59,7 +59,8 @@ public class MiddleFilter extends FilterFramework
 				aux.setId3(arr1.get(i).getId3()) ;
 				aux.setId4(arr1.get(i).getId4()) ;
 				i++;
-				arr3.set(k++,aux);
+				arr3.set(k,aux);
+				k++;
 			}
 
 			else{
@@ -71,7 +72,8 @@ public class MiddleFilter extends FilterFramework
 				aux.setId3(arr2.get(j).getId3()) ;
 				aux.setId4(arr2.get(j).getId4()) ;
 				j++;
-				arr3.set(k++,aux);
+				arr3.set(k,aux);
+				k++;
 			}
 		}
 
@@ -86,7 +88,8 @@ public class MiddleFilter extends FilterFramework
 			aux.setId3(arr1.get(i).getId3()) ;
 			aux.setId4(arr1.get(i).getId4()) ;
 			i++;
-			arr3.set(k++,aux);
+			arr3.set(k,aux);
+			k++;
 		}
 
 
@@ -100,7 +103,8 @@ public class MiddleFilter extends FilterFramework
 			aux.setId3(arr2.get(j).getId3()) ;
 			aux.setId4(arr2.get(j).getId4()) ;
 			j++;
-			arr3.set(k++,aux);
+			arr3.set(k,aux);
+			k++;
 		}
 	}
 
