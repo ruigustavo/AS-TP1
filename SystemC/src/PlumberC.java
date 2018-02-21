@@ -47,7 +47,7 @@ public class PlumberC
 
 
 		SourceFilterA Filter1 = new SourceFilterA();	// This is a source filter - see SourceFilterTemplate.java
-	   SourceFilterA Filter2 = new SourceFilterA();	// This is a standard filter - see MiddleFilter.java
+	   SourceFilterB Filter2 = new SourceFilterB();	// This is a standard filter - see MiddleFilter.java
 		MiddleFilter Filter3 = new MiddleFilter();
 	   SinkFilterC Filter4 = new SinkFilterC();		// This is a sink filter - see SinkFilterC.java
 

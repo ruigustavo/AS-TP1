@@ -227,6 +227,7 @@ public class MiddleFilter extends FilterFramework
 		int sourceA = 0;
 		int sourceB = 1;
 		int currentSource=0;
+		int nextSource=0;
 		Frame actual=null;
 		while (true)
 		{
@@ -248,7 +249,7 @@ public class MiddleFilter extends FilterFramework
 					id =0;
 					// como foi do SourceA temos de consumir bytes do SourceA
 					for (i=0; i<IdLength; i++ ){
-						databyte = ReadFilterInputPort(currentSource);	// This is where we read the byte from the stream...
+						databyte = ReadFilterInputPort(nextSource);	// This is where we read the byte from the stream...
 						// 0-> SourceA 1-> SourceB
 						id = id | (databyte & 0xFF);		// We append the byte on to ID...
 
@@ -260,8 +261,6 @@ public class MiddleFilter extends FilterFramework
 
 						bytesread++;						// Increment the byte count
 
-						//WriteFilterOutputPort(databyteA); // junçao das 2 streams
-						//byteswritten++;
 
 					} // for
 
@@ -269,7 +268,7 @@ public class MiddleFilter extends FilterFramework
 
 					for (i=0; i<MeasurementLength; i++ )
 					{
-						databyte = ReadFilterInputPort(currentSource);
+						databyte = ReadFilterInputPort(nextSource);
 						measurement = measurement | (databyte & 0xFF);	// We append the byte on to measurement...
 
 						if (i != MeasurementLength-1)					// If this is not the last byte, then slide the
@@ -300,15 +299,17 @@ public class MiddleFilter extends FilterFramework
 
 				}
 				if(id==5){
+					currentSource = nextSource;
 					if(currentSource==0){
 						FramesA.add(actual);
-						currentSource=1;
 						actual=null;
+						nextSource=1;
 					}
 					else{
 						FramesB.add(actual);
-						currentSource=0;
 						actual=null;
+						nextSource=0;
+
 					}
 				}
 
@@ -335,9 +336,9 @@ public class MiddleFilter extends FilterFramework
 				}
 				try{		// quando enviamos tudo de um source falta enviar o resto do outro
 
-					if(currentSource == 1){		// se o sourceB acabou, enviamos tudo o que falta do sourceA
+					if(currentSource == 0){		// se o sourceB acabou, enviamos tudo o que falta do sourceA
 
-						array = new byte[72];
+						array = new byte[60];
 
 						position = 0;
 
@@ -368,7 +369,7 @@ public class MiddleFilter extends FilterFramework
 							for (i=0; i<IdLength; i++ ){
 								databyteA = ReadFilterInputPort(0);	// This is where we read the byte from the stream...
 
-								//bytesreadA++;						// Increment the byte count
+								bytesread++;						// Increment the byte count
 
 								WriteFilterOutputPort(databyteA);
 								byteswritten++;
@@ -382,10 +383,10 @@ public class MiddleFilter extends FilterFramework
 							for (i=0; i<MeasurementLength; i++ )
 							{
 								databyteA = ReadFilterInputPort(0);
-								//bytesreadA++;									// Increment the byte count
+								bytesread++;									// Increment the byte count
 
-								WriteFilterOutputPort(databyteA); // junçao das 2 streams
-								//byteswritten++;
+								WriteFilterOutputPort(databyteA);
+								byteswritten++;
 
 							} // if
 
@@ -394,7 +395,7 @@ public class MiddleFilter extends FilterFramework
 
 					}else{							// se o sourceA acabou, enviamos tudo o que falta do sourceB
 
-						array =  new byte[72];
+						array =  new byte[60];
 
 						position = 0;
 
@@ -425,7 +426,7 @@ public class MiddleFilter extends FilterFramework
 							{
 								databyteB = ReadFilterInputPort(1);	// This is where we read the byte from the stream...
 
-								//bytesreadB++;						// Increment the byte count
+								bytesread++;						// Increment the byte count
 
 								WriteFilterOutputPort(databyteB);
 								byteswritten++;
@@ -437,7 +438,7 @@ public class MiddleFilter extends FilterFramework
 							for (i=0; i<MeasurementLength; i++ )
 							{
 								databyteB = ReadFilterInputPort(1);
-								//bytesreadB++;									// Increment the byte count
+								bytesread++;									// Increment the byte count
 
 								WriteFilterOutputPort(databyteB); // junçao das 2 streams
 								byteswritten++;
@@ -450,7 +451,7 @@ public class MiddleFilter extends FilterFramework
 
 				}catch (EndOfStreamException ee){
 					ClosePorts();
-					//System.out.println( "\n" + this.getName() + "::Middle Filter Exiting; bytes read: " + (bytesreadA+bytesreadB) + " bytes written: " + byteswritten  );
+					System.out.println( "\n" + this.getName() + "::Middle Filter Exiting; bytes read: " + (bytesread) + " bytes written: " + byteswritten  );
 					break;
 				}
 
